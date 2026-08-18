@@ -13,10 +13,11 @@
 
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; background: rgba(10,14,31,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.07); }
   .nav-logo { display: flex; align-items: center; text-decoration: none; }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
   .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--white); }
   .nav-cta { background: var(--blue) !important; color: var(--white) !important; padding: 8px 20px; border-radius: 4px; border: 1px solid rgba(79,195,247,0.4) !important; }
+  .nav-toggle { display: none; background: none; border: none; color: var(--white); font-size: 26px; line-height: 1; cursor: pointer; padding: 4px 8px; }
 
   main { max-width: 900px; margin: 0 auto; padding: 140px 40px 100px; }
   .section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
@@ -36,7 +37,12 @@
   footer { text-align: center; padding: 32px 20px; color: rgba(255,255,255,0.4); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.07); }
 
   @media (max-width: 480px) {
-    .nav-links a:not(.nav-cta) { display: none; }
+    .nav-toggle { display: block; }
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 0; background: #0A0E1F; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 16px 24px; width: 100%; }
+    .nav-links a.nav-cta { margin: 8px 24px 16px; width: calc(100% - 48px); text-align: center; }
     main { padding: 120px 20px 60px; }
     .doc-card { flex-wrap: wrap; }
     .doc-download { width: 100%; justify-content: flex-start; }
@@ -47,7 +53,8 @@
 
 <nav>
   <a href="index.html" class="nav-logo"><img src="logo.png" alt="BLU-42 Get a Grip" style="height:48px;width:auto;object-fit:contain;display:block;" /></a>
-  <ul class="nav-links">
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html#features">Features</a></li>
     <li><a href="index.html#shop">Shop</a></li>
     <li><a href="index.html#testimonials">Reviews</a></li>
@@ -55,6 +62,11 @@
     <li><a href="index.html#shop" class="nav-cta">Order Now</a></li>
   </ul>
 </nav>
+<script>
+  document.getElementById('navToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
 
 <main>
   <div class="section-label">Resources</div>
